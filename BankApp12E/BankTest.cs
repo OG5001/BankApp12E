@@ -14,7 +14,7 @@ namespace BankApp12E
         public void SetUp()
         {
             bank = new Bank();
-            bank.CreateAccount("1234");
+            bank.CreateAccount("1234", "Feri");
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace BankApp12E
         [Test]
         public void DepositMultipleAccounts()
         {
-            bank.CreateAccount("5678");
+            bank.CreateAccount("5678", "Feri");
             bank.Deposit("1234", 10000);
             Assert.That(bank.GetBalance("1234"), Is.EqualTo(10000));
             Assert.That(bank.GetBalance("5678"), Is.Zero);
@@ -92,7 +92,7 @@ namespace BankApp12E
         [Test]
         public void TransferMoney()
         {
-            bank.CreateAccount("9876");
+            bank.CreateAccount("9876", "Feri");
             bank.Deposit("9876", 10000);
             bank.Deposit("1234", 10000);
             Assert.That(bank.Transfer("1234", "9876", 10000), Is.True);
@@ -102,7 +102,7 @@ namespace BankApp12E
         [Test]
         public void TransferNegativeAmount()
         {
-            bank.CreateAccount("9876");
+            bank.CreateAccount("9876", "Feri");
             bank.Deposit("9876", 10000);
             bank.Deposit("1234", 10000);
             Assert.That(() => bank.Transfer("1234", "9876", -10000), Throws.TypeOf<ArgumentException>());
@@ -111,7 +111,7 @@ namespace BankApp12E
         [Test]
         public void TransferTooMuch()
         {
-            bank.CreateAccount("9876");
+            bank.CreateAccount("9876", "Feri");
             bank.Deposit("9876", 10000);
             bank.Deposit("1234", 10000);
             Assert.That(() => bank.Transfer("1234", "9876", 15000), Throws.TypeOf<InvalidOperationException>());
@@ -120,7 +120,7 @@ namespace BankApp12E
         [Test]
         public void TransferFromInvalidAccount()
         {
-            bank.CreateAccount("9876");
+            bank.CreateAccount("9876", "Feri");
             bank.Deposit("9876", 10000);
             Assert.That(() => bank.Transfer("3333", "9876", 5000), Throws.TypeOf<ArgumentException>());
         }
@@ -128,7 +128,7 @@ namespace BankApp12E
         [Test]
         public void DeleteAccount()
         {
-            bank.CreateAccount("9876");
+            bank.CreateAccount("9876", "Feri");
             bank.Deposit("9876", 10000);
             bank.Withdraw("9876", 10000);
             Assert.That(bank.CloseAccount("9876", bank.GetBalance("9876")), Is.True);
@@ -137,7 +137,7 @@ namespace BankApp12E
         [Test]
         public void DeleteAccountInvalidBalance()
         {
-            bank.CreateAccount("9876");
+            bank.CreateAccount("9876", "Feri");
             bank.Deposit("9876", 10000);
             Assert.That(() => bank.CloseAccount("9876", bank.GetBalance("9876")), Throws.TypeOf<InvalidOperationException>());
         }
@@ -149,13 +149,13 @@ namespace BankApp12E
         [Test]
         public void DeleteAccountNegativeBalance()
         {
-            bank.CreateAccount("9876");
+            bank.CreateAccount("9876", "Feri");
             Assert.That(() => bank.CloseAccount("9876", -10000), Throws.TypeOf<InvalidOperationException>());
         }
         [Test]
         public void DeleteAccountPositiveBalance()
         {
-            bank.CreateAccount("9876");
+            bank.CreateAccount("9876", "Feri");
             bank.Deposit("9876", 10000);
             Assert.That(() => bank.CloseAccount("9876", bank.GetBalance("9876")), Throws.TypeOf<InvalidOperationException>());
         }
