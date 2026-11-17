@@ -86,5 +86,14 @@
             accounts.Remove(account);
             return true;
         }
+
+        public string GetOwner(string account)
+        {
+            if (!accounts.ContainsKey(account))
+            {
+                throw new ArgumentException("Invalid account");
+            }
+            return accounts[account].Name1;
+        }
     }
 }

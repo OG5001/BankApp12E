@@ -159,5 +159,17 @@ namespace BankApp12E
             bank.Deposit("9876", 10000);
             Assert.That(() => bank.CloseAccount("9876", bank.GetBalance("9876")), Throws.TypeOf<InvalidOperationException>());
         }
+        [Test]
+        public void GetOwnerOfValidAccount()
+        {
+            bank.CreateAccount("9876", "Kovács Marianna");
+            Assert.That(bank.GetOwner("9876"), Is.EqualTo("Kovács Marianna"));
+        }
+
+        [Test]
+        public void GetOwnerOfInvalidAccount()
+        {
+            Assert.That(() => bank.GetOwner("5678"), Throws.TypeOf<ArgumentException>());
+        }
     }
 }
